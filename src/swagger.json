@@ -1,0 +1,338 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "rck-cha-4 doc",
+        "description": "This is an API",
+        "version": "1.0.0",
+        "contact": {
+            "email": "lucgom@alunos.utfpr.edu.br"
+        }
+    },
+    "tags": [
+        {
+            "name": "users",
+            "description": "users management"
+        }
+    ],
+    "paths": {
+        "/users": {
+            "post": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Creates a new user",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name": "ashen one",
+                                    "email": "ashen@souls.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "admin": {
+                                            "type": "boolean"
+                                        },
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        },
+                                        "updated_at": {
+                                            "type": "string"
+                                        },
+                                        "example": {
+                                            "name": "ashen one",
+                                            "email": "ashen@email.com",
+                                            "admin": false,
+                                            "id": "108d98af-b65b-4d04-8201-eebed2f0a208",
+                                            "created_at": "2022-06-15T13:07:47.851Z",
+                                            "updated_at": "2022-06-15T13:07:47.851Z"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "user already exists",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": "string"
+                                    },
+                                    "example": {
+                                        "error": "User Already Exists!"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "return all users",
+                "description": "only admin users can access",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "user_id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "admin": {
+                                            "type": "boolean"
+                                        },
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        },
+                                        "updated_at": {
+                                            "type": "string"
+                                        },
+                                        "example": [
+                                            {
+                                                "name": "ashen one",
+                                                "email": "ashen@email.com",
+                                                "admin": false,
+                                                "id": "108d98af-b65b-4d04-8201-eebed2f0a208",
+                                                "created_at": "2022-06-15T13:07:47.851Z",
+                                                "updated_at": "2022-06-15T13:07:47.851Z"
+                                            },
+                                            {
+                                                "name": "soul of cinder",
+                                                "email": "cinder@email.com",
+                                                "admin": true,
+                                                "id": "10ko19aa-b65b-4d04-8201-eebed2f0a208",
+                                                "created_at": "2022-06-15T13:07:47.851Z",
+                                                "updated_at": "2022-06-15T13:07:47.851Z"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "permission denied",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": "string"
+                                    },
+                                    "example": {
+                                        "error": "Only admins here >:("
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{user_id}": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "return a specific user",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "required": true,
+                        "description": "user id",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "admin": {
+                                            "type": "boolean"
+                                        },
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        },
+                                        "updated_at": {
+                                            "type": "string"
+                                        },
+                                        "example": {
+                                            "name": "ashen one",
+                                            "email": "ashen@email.com",
+                                            "admin": false,
+                                            "id": "108d98af-b65b-4d04-8201-eebed2f0a208",
+                                            "created_at": "2022-06-15T13:07:47.851Z",
+                                            "updated_at": "2022-06-15T13:07:47.851Z"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "user not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": "string"
+                                    },
+                                    "example": {
+                                        "error": "user not found!"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{user_id}/admin": {
+            "patch": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "turns a user into an admin",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "required": true,
+                        "description": "user id",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "admin": {
+                                            "type": "boolean"
+                                        },
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        },
+                                        "updated_at": {
+                                            "type": "string"
+                                        },
+                                        "example": {
+                                            "name": "ashen one",
+                                            "email": "ashen@email.com",
+                                            "admin": true,
+                                            "id": "108d98af-b65b-4d04-8201-eebed2f0a208",
+                                            "created_at": "2022-06-15T13:07:47.851Z",
+                                            "updated_at": "2022-06-15T13:07:47.851Z"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "user not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": "string"
+                                    },
+                                    "example": {
+                                        "error": "user not found!"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
